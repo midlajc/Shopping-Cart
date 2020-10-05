@@ -3,10 +3,12 @@ const collection=require('../config/collections')
 
 
 module.exports={
-    addProduct:(product,callback)=>{
-        console.log(product)
+    addProduct:(product)=>{
+        return new Promise((resolve,reject)=>{
+            console.log(product)
         db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((data)=>{
-            callback(data.ops[0]._id)
+            resolve(data.ops[0]._id)
+        })
         })
     },
     getAllProduct:()=>{
