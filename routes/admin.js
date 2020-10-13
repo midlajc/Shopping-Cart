@@ -25,4 +25,11 @@ router.post("/add-product", function (req, res) {
   });
 });
 
+router.get('/delete-product',(req,res)=>{
+  proId=req.query.id
+  productHelper.deleteProduct(proId).then(()=>{
+    res.redirect('/admin')
+  })
+})
+
 module.exports = router;
