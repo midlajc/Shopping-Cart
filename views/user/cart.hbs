@@ -1,1 +1,35 @@
-<h1>this is your cart </h1>
+<section class="container">
+
+    <table class="table mt-5">
+        <thead class="thead">
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Title</th>
+                <th scope="col">Quandity</th>
+                <th>Price</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+                <tr>
+                <td><img src="images/product-images/{{this.product._id}}.jpg" style="width: 4rem;height: 4rem;" alt="" srcset=""></td>
+                <td>{{this.product.name}}</td>
+                <td>
+                    <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                    <span id="itemCount">{{this.quantity}}</span>
+                    <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button></td>
+                <td>Rs.{{this.product.price}}</td>
+                <td>
+                <a href="/remove-product/{{this.product._id}}" class="btn btn-danger" onclick="return confirm('are you want to remove)">Delete</a>
+                </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <div>
+        <a href="" class="btn btn-success mr-4 mt-4" style="float: right;">Check Out</a>
+    </div>
+</section>
+<script>
+    
+</script>

@@ -4,6 +4,9 @@
             <div class="col-md-6 m-auto">
                 <h2 class="text-center">Create new Account</h2>
                 <form action="/signup" method="post">
+                    {{#if accountStatus}}
+                    <p>{{message}}</p>
+                    {{/if}}
                     <label for="">Name</label>
                     <input type="text" name="name" class="form-control " placeholder="Enter Name">
                     <label for="" class="pt-2">Email Address</label>
