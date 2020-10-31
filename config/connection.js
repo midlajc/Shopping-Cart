@@ -5,6 +5,7 @@ const state={
 
 
 module.exports.connect=(done)=>{
+    // const url='mongodb+srv://midlajc:password@123@shoppingcart.avtrc.mongodb.net/shoppingcart?retryWrites=true&w=majority'
     const url='mongodb://localhost:27017'
     const dbname='shoppingcart'
 

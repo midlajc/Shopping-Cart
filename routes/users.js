@@ -12,15 +12,20 @@ const verifyLogin=((req,res,next)=>{
   }
 })  
 
+const getCartCount=(async(user)=>{
+  let cartCount
+  if(user){
+    cartCount=await userHelper.getCartCount(user._id)
+    return cartCount
+  }
+})
+
 /* GET home page. */
 router.get('/',async(req,res)=>{
   let user=req.session.user
-  let cartCount
-  // if(user){
-  //   cartCount=await userHelper.getCartCount(user._id)
-  // }
+  let cartCount=await getCartCount(user)
   productHelper.getAllProduct().then((products) => {
-    res.render("user/view-products", { products,user,cartCount });
+    res.render("user/view-products", { products,user,cartCount});
   });
 });
 
@@ -75,18 +80,25 @@ router.get('/logout',(req,res)=>{
 
 router.get('/cart',verifyLogin,async(req,res)=>{
   let user=req.session.user
+  let cartCount=await getCartCount(user)
   userHelper.getCartProducts(user._id).then((products)=>{
-  res.render('user/cart',{user,products})
+  res.render('user/cart',{user,products,cartCount})
   }) 
 })
 router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
   userHelper.addToCart(req.params.id,req.session.user._id).then(()=>{
+    
     res.json({status:true})
   })
 })
 router.post('/change-product-quandity',(req,res,next)=>{
   userHelper.changeProductQuandity(req.body).then((response)=>{
-
+    res.json(response)
   })
+})
+router.get('/check-out',verifyLogin,async(req,res)=>{
+  user=req.session.user
+  let cartCount=await getCartCount(user)
+  res.render('user/check-out',{user,cartCount})
 })
 module.exports = router;
