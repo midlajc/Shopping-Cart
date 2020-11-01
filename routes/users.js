@@ -31,7 +31,6 @@ router.get('/',async(req,res)=>{
 
 router.get('/login',(req,res)=>{
   if(req.session.loggedIn){
-    console.log("hello");
     res.redirect('/')
 }else{
   let accountStatus=req.session.accountStatus
@@ -43,7 +42,9 @@ router.get('/login',(req,res)=>{
 router.post('/login',(req,res)=>{
   
   userHelper.doLogin(req.body).then((response)=>{
+    
     if(response.status){
+
       req.session.loggedIn=true
       req.session.user=response.user
       res.redirect('/')
@@ -79,10 +80,11 @@ router.get('/logout',(req,res)=>{
 })
 
 router.get('/cart',verifyLogin,async(req,res)=>{
+  let total=await userHelper.getTotalAmount(req.session.user._id)
   let user=req.session.user
   let cartCount=await getCartCount(user)
   userHelper.getCartProducts(user._id).then((products)=>{
-  res.render('user/cart',{user,products,cartCount})
+  res.render('user/cart',{user,products,cartCount,total})
   }) 
 })
 router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
@@ -97,8 +99,9 @@ router.post('/change-product-quandity',(req,res,next)=>{
   })
 })
 router.get('/check-out',verifyLogin,async(req,res)=>{
+  let total=await userHelper.getTotalAmount(req.session.user._id)
   user=req.session.user
   let cartCount=await getCartCount(user)
-  res.render('user/check-out',{user,cartCount})
+  res.render('user/check-out',{user,cartCount,total})
 })
 module.exports = router;
