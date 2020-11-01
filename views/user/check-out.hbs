@@ -1,10 +1,10 @@
 <section class="container mt-5 pt-5">
-    <form>
+    <form id="place-order-form">
         <div class="row">
             <div class="col-sm-12 col-md-7">
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" value="{{user.name}}">
                 </div>
                 <div class="form-group">
                     <label>Address</label>
@@ -13,12 +13,13 @@
                 <div class="row">
                     <div class="form-group col-md-6 col-sm-12">
                         <label>Pincode</label>
-                        <input type="number" class="form-control">
+                        <input type="number" class="form-control" name="pincode">
                     </div>
                     <div class="form-group col-md-6 col-sm-12">
                         <label>Contact No</label>
-                        <input type="number" class="form-control" value="+91">
+                        <input type="number" name="contact-number" class="form-control" value="+91">
                     </div>
+                    <input type="text" name="userId" value="{{user._id}}" hidden>
                 </div>
             </div>
             <div class="col-sm-12 col-md-5 mt-5">
@@ -27,24 +28,37 @@
                         <h3 class="card-title">Total: Rs. {{total}}</h3>
                         <div class="m-1">
                             <div class="form-check m-1">
-                                <input class="form-check-input" type="radio" name="payment-method" id="exampleRadios1"
-                                    value="cod" checked>
-                                <label class="form-check-label" for="exampleRadios1">
+                                <input class="form-check-input" type="radio" name="payment-method" value="COD" checked>
+                                <label class="form-check-label" for="">
                                     COD
                                 </label>
                             </div>
                             <div class="form-check m-1">
-                                <input class="form-check-input" type="radio" name="payment-method" id="exampleRadios2"
-                                    value="online-payment">
-                                <label class="form-check-label" for="exampleRadios2">
+                                <input class="form-check-input" type="radio" name="payment-method" value="ONLINE">
+                                <label class="form-check-label" for="">
                                     Online Payment
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <a href="/place-order" class="btn btn-primary float-right m-2">Place Order</a>
+                    <button type="submit"  class="btn btn-primary float-right m-2">Place Order</button>
                 </div>
             </div>
         </div>
     </form>
 </section>
+<script>
+        $("#place-order-form").submit((e)=>{
+            e.preventDefault(),
+            $.ajax({
+                url:'/place-order',
+                method:'post',
+                data:$('#place-order-form').serialize(),
+                success:(response)=>{
+                    if(response.status){
+                        location.href='/orders'
+                    }
+                },
+            })
+        })
+</script>

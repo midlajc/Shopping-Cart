@@ -9,7 +9,7 @@ module.exports = {
     addProduct: (product) => {
         return new Promise((resolve, reject) => {
             console.log(product)
-            product.price=parseInt(product.price)
+            product.price = parseInt(product.price)
             db.get().collection(collection.PRODUCT_COLLECTION).insertOne(product).then((data) => {
                 resolve(data.ops[0]._id)
             })
