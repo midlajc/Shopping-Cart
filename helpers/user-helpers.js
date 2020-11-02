@@ -223,24 +223,30 @@ module.exports = {
   },
   placeOrder: (order, products, total) => {
     return new Promise((resolve, reject) => {
-      let status=order['payment-method']==='COD'?'placed':'pending'
-      let orderObj={
-        address:{
-          mobile:order['contact-number'],
-          landmark:order.address,
-          pincode:order.pincode
+      let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
+      let orderObj = {
+        address: {
+          mobile: order['contact-number'],
+          landmark: order.address,
+          pincode: order.pincode
         },
-        userId:ObjectID(order.userId),
-        paymentMethod:order['payment-method'],
-        products:products,
-        totalAmount:total,
-        date:new Date(),
-        status:status
+        userId: ObjectID(order.userId),
+        paymentMethod: order['payment-method'],
+        products: products,
+        totalAmount: total,
+        date: new Date(),
+        status: status
       }
-      db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response)=>{
+      db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
         //db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectID(order.address)})
         resolve()
       })
+    })
+  },
+  getUserOrders: (userId) => {
+    return new Promise(async(resolve, reject) => {
+      let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: ObjectId(userId) }).toArray()
+      resolve(orders)
     })
   }
 };

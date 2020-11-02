@@ -84,6 +84,7 @@ router.get('/cart', verifyLogin, async (req, res) => {
   let user = req.session.user
   let cartCount = await getCartCount(user)
   userHelper.getCartProducts(user._id).then((products) => {
+    console.log(products);
     res.render('user/cart', { user, products, cartCount, total })
   })
 })
@@ -115,6 +116,17 @@ router.post('/place-order', async (req, res) => {
   userHelper.placeOrder(req.body, products, total).then((response) => {
     res.json({status:true})
   })
+})
+
+router.get('/order-success',(req,res)=>{
+  res.render('user/order-success',{user:req.session.user})
+})
+
+router.get('/orders',verifyLogin,async(req,res)=>{
+  user=req.session.user
+  let orders=await userHelper.getUserOrders(user._id)
+  console.log(orders);
+  res.render('user/orders',{user,orders})
 })
 
 module.exports = router;
