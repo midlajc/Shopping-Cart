@@ -1,6 +1,6 @@
 <section>
 
-    <table class="table">
+    <table class="table" id="productsTable">
         <thead class="thead-dark">
             <tr>
                 <th scope="col">No</th>
@@ -9,7 +9,7 @@
                 <th scope="col">Discription</th>
                 <th scope="col">Price</th>
                 <th scope="col">Image</th>
-                <th></th>
+                <th scope="col">Options</th>
             </tr>
         </thead>
         <tbody>
@@ -33,3 +33,8 @@
         <a href="admin/add-product" class="btn btn-success ml-4 mt-4">Add Product</a>
     </div>
 </section>
+<script>
+    $(document).ready( function () {
+    $('#productsTable').DataTable();
+} );
+</script>

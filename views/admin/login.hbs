@@ -1,0 +1,25 @@
+<section>
+    <div class="containermt-5 pt-5">
+        <div class="row">
+            <div class="col-md-6 m-auto">
+                <h2 class="text-center">Admin Login</h2>
+                <form action="/admin/login" method="post">
+                    <label for="">Email Address</label>
+                    {{#if accountStatus}}
+                    <input type="email" name="email" class="form-control " placeholder="{{message}}">
+                    {{else}}
+                    <input type="email" name="email" class="form-control " placeholder="Enter Email">
+                    {{/if}}
+                    <label for="" class="pt-2">Password</label>
+                    {{#if passwordStatus}}
+                    <input type="password" name="password" class="form-control" placeholder="{{message}}">
+                    {{else}}
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                    {{/if}}
+                    <a href="/signup">Create new Account?</a>
+                    <button type="submit" class="btn center btn-primary float-right mt-2">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

@@ -3,15 +3,8 @@
     <a class="navbar-brand" href="/">
       Shopping Cart
     </a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -36,20 +29,14 @@
         {{/if}}
       </ul>
       <div class="dropdown">
-        <button
-          class="btn btn-secondary dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-        {{#if user}}
-            {{user.name}}
-        {{else}}
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          {{#if user}}
+          {{user.name}}
+          {{else}}
           Account
-        {{/if}} </button>
-        {{#if user}} 
+          {{/if}} </button>
+        {{#if user}}
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="/logout">
             Logout
@@ -62,8 +49,8 @@
           </a>
         </div>
         {{/if}}
-        
-         
+
+
       </div>
     </div>
   </nav>
