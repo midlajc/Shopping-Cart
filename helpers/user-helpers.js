@@ -279,7 +279,8 @@ module.exports = {
   getUserOrders: (userId) => {
     return new Promise(async (resolve, reject) => {
       let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: ObjectId(userId) }).toArray()
-      resolve(orders, { address: orders.address })
+      console.log(orders);
+      resolve(orders)
     })
   },
   generateRazorpay: (orderId, total) => {

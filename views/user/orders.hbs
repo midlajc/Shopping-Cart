@@ -5,8 +5,8 @@
             <tr>
                 <th scope="col">Date</th>
                 <th scope="col">Address</th>
-                <th scope="col">Pincode</th>
                 <th scope="col">Mobile</th>
+                <th scope="col">Pincode</th>
                 <th scope="col">Price</th>
                 <th scope="col">Payment</th>
                 <th scope="col">Status</th>
@@ -17,9 +17,9 @@
             {{#each orders}}
             <tr>
                 <td>{{this.date}}</td>
-                <td>{{this.adderss.landmark}}</td>
-                <td>{{this.adderss.mobile}}</td>
-                <td>{{this.adderss.pincode}}</td>
+                <td>{{this.address.landmark}}</td>
+                <td>{{this.address.mobile}}</td>
+                <td>{{this.address.pincode}}</td>
                 <td>Rs.{{this.totalAmount}}</td>
                 <td>{{this.paymentMethod}}</td>
                 <td>{{this.status}}</td>
