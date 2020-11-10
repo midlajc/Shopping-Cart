@@ -155,3 +155,10 @@ router.get('/view-order-products/:id',verifyLogin,async(req,res)=>{
   res.render('user/view-order-products',{user:req.session.user,products})
 })
 module.exports = router;
+
+
+router.get("/remove-product/:id",(req,res)=>{
+  userHelper.removeCartProduct(req.session.user._id,req.params.id).then((response)=>{
+    res.redirect('/cart')
+  })
+})

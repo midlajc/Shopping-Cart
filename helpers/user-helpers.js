@@ -286,7 +286,7 @@ module.exports = {
   generateRazorpay: (orderId, total) => {
     return new Promise((resolve, reject) => {
       var options = {
-        amount: total*100,  // amount in the smallest currency unit
+        amount: total * 100,  // amount in the smallest currency unit
         currency: "INR",
         receipt: "" + orderId
       };
@@ -294,38 +294,37 @@ module.exports = {
         if (err) {
           console.log(err);
         } else {
-          console.log('hello:', order);
           resolve(order)
         }
       });
     })
   },
   verifyPayment: (paymentDetails) => {
-    return new Promise(async(resolve,reject)=>{
+    return new Promise(async (resolve, reject) => {
       let generated_signature = crypto.createHmac('sha256', 'VPEPisueUKCMVhojUsf8kA4O')
-      generated_signature.update(paymentDetails['payment[razorpay_order_id]']+'|'+paymentDetails['payment[razorpay_payment_id]'])
-      generated_signature=generated_signature.digest('hex');
-      if(generated_signature==paymentDetails['payment[razorpay_signature]']){
+      generated_signature.update(paymentDetails['payment[razorpay_order_id]'] + '|' + paymentDetails['payment[razorpay_payment_id]'])
+      generated_signature = generated_signature.digest('hex');
+      if (generated_signature == paymentDetails['payment[razorpay_signature]']) {
         resolve()
-      }else{
+      } else {
         reject()
       }
     })
   },
-  changePaymentStatus:(orderId)=>{
-    return new Promise((resolve,reject)=>{
+  changePaymentStatus: (orderId) => {
+    return new Promise((resolve, reject) => {
       db.get().collection(collection.ORDER_COLLECTION)
-      .updateOne({_id:ObjectId(orderId)},
-      {
-        $set:{
-          status:'PLACED'
-        }
-      }).then(()=>{
-        resolve()
-      })
+        .updateOne({ _id: ObjectId(orderId) },
+          {
+            $set: {
+              status: 'PLACED'
+            }
+          }).then(() => {
+            resolve()
+          })
     })
   },
-  getOrderProducts:(orderId)=>{
+  getOrderProducts: (orderId) => {
     return new Promise(async (resolve, reject) => {
       let orderItems = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
         {
@@ -356,5 +355,13 @@ module.exports = {
       ]).toArray()
       resolve(orderItems)
     })
-  }
+  },
+  removeCartProduct: (userId, proId) => {
+    return new Promise(async(resolve, reject) => {
+      await db.get().collection(collection.CART_COLLECTION)
+        .updateOne({ user: ObjectID(userId) },{$pull: { products: { item: ObjectId(proId) } }
+        })
+      resolve()
+    }
+    )}
 };
