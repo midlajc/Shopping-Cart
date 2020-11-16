@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,7 +14,7 @@ var adminRouter = require('./routes/admin');
 
 var app = express();
 
-app.listen(3000)
+//app.listen(4000)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -51,4 +52,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//module.exports = app;
+exports.app = functions.https.onRequest(app);

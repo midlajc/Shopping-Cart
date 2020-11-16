@@ -1,6 +1,6 @@
 const { json } = require('express');
 var express = require('express');
-const { response } = require('../app');
+const { response } = require('..');
 var router = express.Router();
 var productHelper = require("../helpers/product-helpers");
 var userHelper = require("../helpers/user-helpers");

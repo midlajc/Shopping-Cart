@@ -1,6 +1,6 @@
 const db = require('../config/connection')
 const collection = require('../config/collections')
-const { response } = require('../app')
+const { response } = require('..')
 const objectId = require('mongodb').ObjectID
 
 
