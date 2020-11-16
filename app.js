@@ -13,6 +13,7 @@ var adminRouter = require('./routes/admin');
 
 var app = express();
 
+app.listen(3000)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -50,4 +51,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+//module.exports = app;
