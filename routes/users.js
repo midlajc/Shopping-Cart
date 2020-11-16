@@ -162,3 +162,7 @@ router.get("/remove-product/:id",(req,res)=>{
     res.redirect('/cart')
   })
 })
+
+router.get("/hello",(req,res)=>{
+  res.json({hello:"hello"})
+})
